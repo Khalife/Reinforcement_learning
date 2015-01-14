@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}  
 \usepackage[T1]{fontenc} 
-\usepackage[top=2cm,bottom=2cm,left=1.3cm,right=1.5cm,asymmetric]{geometry}
+\usepackage[top=1.4cm,bottom=1.2cm,left=1.3cm,right=2cm,asymmetric]{geometry}
 \usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage{caption}
@@ -119,7 +119,9 @@ The SAO algorithm starts off like a classical algorithm for the stochastic frame
 An an important novelty, they mange to prove an $\tilde{O}(\sqrt{n})$ regret bound for the adversarial case and a $polylog(n)$ bound for the stochastic case, thus coming close to the theoretical performance bounds for the UCB and the EXP3 algorithm that we recalled in the previous section. Their main result reads as follows:
 \begin{theorem}
 There exists an algorithm SAO for the MAB problem such that:
-\begin{enumerate}\item[(a)] in the adversarial model, SAO achieves regret $\mathbb{E}[R_n] \leq O(\sqrt{nK} \log^{3/2}(n) \log K)$.?\item[(b)] in the stochastic model, SAO achieves regret $\mathbb{E}[R_n] \leq O(K \log^{2}(n) \log K)$.\end{enumerate}
+\begin{enumerate}
+\item[(a)] in the adversarial model, SAO achieves regret $\mathbb{E}[R_n] \leq O(\sqrt{nK} \log^{3/2}(n) \log K)$.
+?\item[(b)] in the stochastic model, SAO achieves regret $\mathbb{E}[R_n] \leq O(K \log^{2}(n) \log K)$.\end{enumerate}
 \end{theorem}
 
 The details are stated in the following theorem. The algorithm (with the explanation of the parameters) can be found in the appendix.
@@ -192,7 +194,7 @@ With $\eta_{t}=2\beta_{t}$ and $\xi_{t}(a)=0$ we find back EXP3.
 
 
 \section*{Theoretical results for EXP3++}
-The main results have been demonstrated by Seldin et al. \cite{Seld12}.
+The main results have been demonstrated by Seldin et al. $[8]$.
 
 \subsection*{Adversarial regimes}
 
@@ -226,9 +228,40 @@ $$R(t) \leq \sum_{a}\{\min_{\tau}\{max\{t^{*},\tau,e^{1/(\Delta(\tau,a))^{2}}\}+
 With $\eta_{t}=\beta_{t}$, the EXP3++ algorithm provides a guarantee against adversarial situations. On the other hand, a configuration such that $\eta=1$ provide better results on a stochastic configuration. Still a lot has to be done concerning this trade-off.
 
 \section*{Numerical comparison}
+\subsection*{Comparison in a contaminated regime}
+The comparison has been made with an implementation of EXP3++ with a time-depending gap $$\Delta(t,a)=\max_{a}(\mathbb{E}[r_{t}^{a}]-\mathbb{E}[r_{t}^{a}])$$ with 100 repetitions (Monte Carlo Simulations), the tuning  $\eta_{t}=\beta_{t}=\frac{1}{2}\sqrt{\frac{\ln(K)}{tK}}$ (Empirical EXP3++, cf [8]). The EXP3++ algorithm revealed to be more efficient on a contamined regime.
+\begin{figure}[!h]
+   \begin{minipage}[c]{0.5 \linewidth}
+   \centering
+    \captionsetup{justification=centering,margin=1cm}
+      \includegraphics[width=10cm]{comparaison_contamined.jpg}
+      \caption{Regret of EXP3 and EXP3++ algorithm on a contamined configuration with 5 stochastic arms and 5 adversarial arms}
+   \end{minipage} \hfill
+\end{figure}~\\
 
+\newpage
+\subsection*{Pure stochastic comparison}
+\begin{figure}[!h]
+	\begin{minipage}[c]{0.5 \linewidth}
+		\centering
+		\captionsetup{justification=centering,margin=1cm}
+		\includegraphics[width=10cm]{stochasticComparaison.jpg}
+		\caption{Regret of EXP3 and EXP3++ algorithm on a contamined configuration with 10 arms}
+	\end{minipage} \hfill
+\end{figure}~\\
+With the same tuning of parameters as previously for the EXP++ algorithm, its performance is equivalent to Thompson sampling.
+\subsection*{Adversarial regime}
+The advantage of EXP3++ is the guarantee for adversarial configurations, as we can see in the following comparison :
+\begin{figure}[!h]
+	\begin{minipage}[c]{0.5 \linewidth}
+		\centering
+		\captionsetup{justification=centering,margin=1cm}
+		\includegraphics[width=10cm]{compAdversarial.jpg}
+		\caption{Regret of three methods on adversarial configuration}
+	\end{minipage} \hfill
+\end{figure}~\\
 
-\section*{The $(\mathcal{A},\, \mathcal{B})-$PROD algorithm applied to multi-armed bandits}
+\subsection*{The $(\mathcal{A},\, \mathcal{B})-$PROD algorithm applied to multi-armed bandits}
 
 The multi-armed bandit problem is a special case of a general online decision-making problem. It belongs to the class of partial feedback problems: In an MAB, the player's feedback is equal to his reward. He does in particular not obtain any knowledge regarding the theoretical rewards of the arms he has not played.
 
